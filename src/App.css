@@ -1,0 +1,389 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  overflow: auto;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark theme */
+body.dark-theme {
+  background-color: #333;
+  color: white;
+}
+
+body.dark-theme .container {
+  background-color: #444;
+}
+
+body.dark-theme .task-card {
+  background-color: #555;
+  color: white;
+}
+
+body.dark-theme button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+body.dark-theme button:hover {
+  background-color: #45a049;
+}
+
+body.dark-theme #task-list {
+  background-color: #666;
+}
+
+body.dark-theme #filters button {
+  background-color: #777;
+  color: white;
+}
+
+body.dark-theme #filters button:hover {
+  background-color: #888;
+}
+
+/* Light theme (default) */
+body.light-theme {
+  background-color: #f4f4f9;
+  color: black;
+}
+
+/* Additional styles that don't change */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Task list styling */
+#task-list {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 700px;
+  box-sizing: border-box;
+  padding-right: 10px;
+  height: 600px;
+  overflow-y: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Button and other element styles */
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.delete-btn {
+  background-color: #f44336;
+}
+
+button.delete-btn:hover {
+  background-color: #e53935;
+}
+
+button.complete-btn {
+  background-color: #008CBA;
+}
+
+button.complete-btn:hover {
+  background-color: #007b8b;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Task form styles */
+#task-form-section {
+  margin-top: 20px;
+  max-height: none;
+  height: auto;
+  overflow-y: auto;
+}
+
+/* Input fields, textareas, and selects in task form */
+#task-form input,
+#task-form textarea,
+#task-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Submit button inside task form */
+#task-form button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#task-form button:hover {
+  background-color: #45a049;
+}
+
+/* Filter buttons styles */
+#filters {
+  margin-top: 20px;
+}
+
+#filters button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#filters button:hover {
+  background-color: #e1e1e1;
+  border-color: #888;
+}
+
+/* When filter button is active */
+#filters button.active {
+  background-color: #4caf50;
+  color: white;
+  border-color: #388e3c;
+}
+
+#filters button:focus {
+  outline: none;
+}
+
+/* Task list paragraph styling */
+#task-list p {
+  color: #999;
+  font-size: 16px;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* Task card styling */
+.task-card {
+  background-color: white;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
+  margin: 10px auto;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Completed task styling */
+.task-card.completed {
+  background-color: #d3ffd3;
+  border-left: 5px solid #4CAF50;
+  transition: background-color 0.3s ease, border-left 0.3s ease;
+}
+
+/* Dark theme completed task */
+body.dark-theme .task-card.completed {
+  background-color: #264d26;
+  border-left: 5px solid #4CAF50;
+  color: white;
+}
+
+/* Urgent task styling */
+.task-card.urgent {
+  background-color: #ffcccc;
+  border-left: 5px solid red;
+}
+
+/* Dark theme urgent task */
+body.dark-theme .task-card.urgent {
+  background-color: #4d2626;
+  border-left: 5px solid red;
+  color: white;
+}
+
+/* Hover effect for task cards */
+.task-card:hover {
+  background-color: #f9f9f9;
+}
+
+/* Task list container styling */
+#task-list {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: #45a049;
+}
+
+/* Logout button container */
+.logout-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+/* Logout button styles */
+.logout-container button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.logout-container button:hover {
+  background-color: #d32f2f;
+}
+
+/* Form container styling */
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Heading styles inside form */
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form group for spacing inputs */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Input fields styling */
+.input-field {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Submit button and switch form button styling */
+.submit-btn, .switch-form-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Submit button styling */
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+/* Button to switch forms (login/register) */
+.switch-form-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.switch-form-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Add margins and smooth transitions for buttons */
+.switch-form-btn {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.switch-form-btn:focus {
+  outline: none;
+}
+
+/* Delete button styling */
+button.delete-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+button.delete-btn:focus {
+  outline: none;
+}
