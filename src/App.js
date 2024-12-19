@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 import CryptoJS from "crypto-js";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
+import { saveData, getAllData, deleteData } from './db'; // Importing db.js functions
 
 function App() {
     const [tasks, setTasks] = useState([]);
@@ -37,24 +38,27 @@ function App() {
         document.body.className = newTheme ? "dark-theme" : "light-theme"; 
     };
 
-    // Loading tasks for the current user from localStorage
+    // Loading tasks for the current user from IndexedDB
     useEffect(() => {
         if (currentUser) {
-            const savedTasks = JSON.parse(localStorage.getItem(`tasks_${currentUser}`)) || [];
-            setTasks(savedTasks);
+            const loadTasks = async () => {
+                const savedTasks = await getAllData('tasks');
+                setTasks(savedTasks.filter(task => task.user === currentUser)); // Filter tasks by current user
+            };
+            loadTasks();
         }
     }, [currentUser]);
 
-    // Saving tasks to localStorage whenever they are updated
-    const saveTasksToLocalStorage = () => {
+    // Saving tasks to IndexedDB every time they change
+    const saveTasksToIndexedDB = async () => {
         if (currentUser) {
-            localStorage.setItem(`tasks_${currentUser}`, JSON.stringify(tasks));
+            tasks.forEach(task => saveData('tasks', task));
         }
     };
 
-    // Saving tasks to localStorage every time they change
+    // Saving tasks to IndexedDB every time they change
     useEffect(() => {
-        saveTasksToLocalStorage();
+        saveTasksToIndexedDB();
     }, [tasks]);
 
     // Handling input changes for task creation
@@ -67,9 +71,15 @@ function App() {
     };
 
     // Adding a new task to the list
-    const addTask = (e) => {
+    const addTask = async (e) => {
         e.preventDefault();
-        const taskWithDate = { ...newTask, createdAt: new Date(), completed: false, id: new Date().toISOString() };
+        const taskWithDate = { 
+            ...newTask, 
+            createdAt: new Date(), 
+            completed: false, 
+            id: new Date().toISOString(), 
+            user: currentUser 
+        };
         const updatedTasks = [...tasks, taskWithDate];
         setTasks(updatedTasks);
         setNewTask({
@@ -84,20 +94,22 @@ function App() {
         setIsFormVisible(false);
     };
 
-    // Deleting a task
-    const deleteTask = (taskToDelete) => {
+    // Deleting a task from IndexedDB
+    const deleteTask = async (taskToDelete) => {
         const updatedTasks = tasks.filter((task) => task.id !== taskToDelete.id);
         setTasks(updatedTasks);
+        await deleteData('tasks', taskToDelete.id); // Delete task from IndexedDB
     };
 
     // Marking a task as completed
-    const completeTask = (taskToComplete) => {
+    const completeTask = async (taskToComplete) => {
         const updatedTasks = tasks.map((task) =>
             task.id === taskToComplete.id
                 ? { ...task, completed: !task.completed }
                 : task
         );
         setTasks(updatedTasks);
+        await saveTasksToIndexedDB(); // Save updated tasks to IndexedDB
     };
 
     // Sorting tasks by priority
